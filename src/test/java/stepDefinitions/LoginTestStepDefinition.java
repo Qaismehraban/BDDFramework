@@ -1,22 +1,20 @@
 package stepDefinitions;
 
 import org.junit.Assert;
-import org.openqa.selenium.ElementNotInteractableException;
+
 
 import core.Base;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pageObjects.LoginPageObj;
-import pageObjects.MyAccountPageObj;
 import utilities.WebDriverUtility;
 
 public class LoginTestStepDefinition extends Base {
 
 	// we need to create obj of loginPageObj
 	LoginPageObj loginPageObj = new LoginPageObj();
-	MyAccountPageObj myAccountPageObj = new MyAccountPageObj();
+	
 
 	@Given("^User is on Retail website$")
 	public void user_is_on_Retail_website() throws Throwable {
@@ -63,37 +61,16 @@ public class LoginTestStepDefinition extends Base {
 	public void user_click_on_Login_button() throws Throwable {
 		loginPageObj.clickOnLoginButton();
 		logger.info("User click on Login button");
+		
 
 	}
-
 	@Then("^User should be logged in to MyAccount dashboard$")
 	public void user_should_be_logged_in_to_MyAccount_dashboard() throws Throwable {
-		Assert.assertTrue(myAccountPageObj.isMyAccountDisplayed());
-		Assert.assertTrue(myAccountPageObj.isMyOrdersDisplayed());
+		WebDriverUtility.wait(3000);
 		WebDriverUtility.screenShot();
-
 	}
+	
+	
 
-	@And("^User click on Logout$")
-	public void user_click_on_logout() throws Throwable {
-		// in order to handle the exception we can use try catch blocks.
-
-		try {
-			myAccountPageObj.clickOnLogOut();
-		} catch (ElementNotInteractableException e) {
-			myAccountPageObj.clickOnLogOut();
-		}
-
-	}
-
-	@Then("^User Should be logged out from MyAccount dashboard$")
-	public void user_should_be_logged_out_from_myAccount_dashboard() throws Throwable {
-
-		Assert.assertTrue(myAccountPageObj.isLogOutConfirmationTextDisplayed());
-
-		WebDriverUtility.screenShot();
-		WebDriverUtility.wait(5000);
-
-	}
-
+	
 }
